@@ -6,7 +6,9 @@ import session from "express-session";
 import passport from "passport";
 import LocalStrategy from "passport-local";
 import bycrypt from "bcryptjs";
+
 import models, { connectDb } from "./models";
+import routes from "./routes";
 
 const app = express();
 
@@ -65,9 +67,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+// ROUTES
+app.use("/posts", routes.post);
+app.use("/user", routes.user);
+app.use("/comments", routes.comment);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
