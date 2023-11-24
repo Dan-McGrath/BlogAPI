@@ -9,3 +9,9 @@ export const users_get = asyncHandler(async (req, res, next) => {
   });
 });
 
+export const user_detail_get = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.userId).exec();
+  res.json({
+    user: user,
+  });
+});
