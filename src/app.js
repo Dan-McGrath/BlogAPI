@@ -6,6 +6,7 @@ import session from "express-session";
 import passport from "passport";
 import LocalStrategy from "passport-local";
 import bycrypt from "bcryptjs";
+import createError from "http-errors";
 
 import models from "./models";
 import routes from "./routes";
@@ -66,6 +67,14 @@ app.use(passport.session());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+  req.context = {
+    models,
+    me: models.User[1],
+  };
+  next();
+});
 
 // ROUTES
 app.use("/", routes.post);
