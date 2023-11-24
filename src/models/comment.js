@@ -6,17 +6,18 @@ const CommentSchema = new mongoose.Schema(
       type: String,
       maxLength: 100,
     },
-    comment: {
+    text: {
       type: String,
       required: true,
       maxLength: 250,
     },
-    post: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Post", required: true },
-    ],
-    parentComment: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Comment", required: true },
-    ],
+    post: { type: mongoose.Schema.Types.ObjectId, ref: "Post", required: true },
+
+    parentComment: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+      required: false,
+    },
   },
   { timestamps: true }
 );
