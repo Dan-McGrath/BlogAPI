@@ -7,7 +7,7 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 import bycrypt from "bcryptjs";
 
-import models, { connectDb } from "./models";
+import models from "./models";
 import routes from "./routes";
 
 const app = express();
