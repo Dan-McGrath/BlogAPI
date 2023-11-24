@@ -34,4 +34,31 @@ export const comment_of_comment_detail_get = asyncHandler(
   }
 );
 
-export const post_comment_post = 
+export const post_comment_post = [
+  body("name").trim().escape(),
+  body("text").trim().isLength({ min: 1, max: 250 }).escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const commentDetail = {
+      name: req.body.name,
+      text: req.body.text,
+      post: req.params.postId,
+    };
+    if (req.params.commentId)
+      commentDetail.parentComment = req.params.commentId;
+
+    const comment = new Comment(commentDetail);
+
+    if (!errors.isEmpty()) {
+      res.json({
+        comment: comment,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      await comment.save();
+      return
+    }
+  }),
+];
