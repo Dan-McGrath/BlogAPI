@@ -79,7 +79,7 @@ app.use((req, res, next) => {
 // ROUTES
 app.use("/", routes.post);
 app.use("/user", routes.user);
-app.use("/comments", routes.comment);
+app.use("/", routes.comment);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
