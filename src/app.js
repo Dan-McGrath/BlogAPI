@@ -68,7 +68,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ROUTES
-app.use("/posts", routes.post);
+app.use("/", routes.post);
 app.use("/user", routes.user);
 app.use("/comments", routes.comment);
 
