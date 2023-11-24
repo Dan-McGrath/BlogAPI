@@ -1,4 +1,5 @@
 import User from "../models/user";
+import { body, validationResult } from "express-validator";
 
 import asyncHandler from "express-async-handler";
 
