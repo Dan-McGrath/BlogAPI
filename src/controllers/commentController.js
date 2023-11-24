@@ -1,5 +1,5 @@
 import Comment from "../models/comment";
-
+import { body, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
 
 export const post_comments_get = asyncHandler(async (req, res, next) => {
@@ -33,3 +33,5 @@ export const comment_of_comment_detail_get = asyncHandler(
     });
   }
 );
+
+export const post_comment_post = 
