@@ -58,7 +58,9 @@ export const post_comment_post = [
       return;
     } else {
       await comment.save();
-      return
+      res.json({
+        comment: comment,
+      });
     }
   }),
 ];
