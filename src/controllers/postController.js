@@ -48,3 +48,13 @@ export const post_create_post = [
     }
   }),
 ];
+
+export const post_delete = asyncHandler(async (req, res, next) => {
+  const post = await Post.findByIdAndDelete(req.params.postId);
+
+  await Comment.deleteMany({ post: req.params.postId });
+
+  return res.json({
+    post: post,
+  });
+});
