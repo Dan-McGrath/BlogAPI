@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+    comment_delete,
   comment_of_comment_detail_get,
   comments_of_comments_get,
   post_comment_detail_get,
@@ -9,7 +10,7 @@ import {
 
 const router = Router();
 
-router.delete('/:postId')
+router.delete('/:postId/:commentId', comment_delete)
 
 // router.get("/:postId/comments", post_comments_get);
 // router.post("/:postId/comments", post_comment_post);
