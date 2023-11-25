@@ -1,4 +1,5 @@
 import Post from "../models/post";
+import Comment from "../models/comment";
 import { body, validationResult } from "express-validator";
 
 import asyncHandler from "express-async-handler";
@@ -11,9 +12,13 @@ export const posts_get = asyncHandler(async (req, res, next) => {
 });
 
 export const posts_detail_get = asyncHandler(async (req, res, next) => {
-  const post = await Post.findById(req.params.postId).exec();
+  const [post, comments] = await Promise.all([
+    Post.findById(req.params.postId).exec(),
+    Comment.find({ post: req.params.postId }).exec(),
+  ]);
   res.json({
     post: post,
+    comments: comments,
   });
 });
 
