@@ -8,12 +8,12 @@ const PostSchema = new mongoose.Schema(
       maxLength: 100,
     },
     isPublished: {
-        type: Boolean,
-        default: false,
-      },
+      type: Boolean,
+      default: false,
+    },
     article: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
