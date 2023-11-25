@@ -1,8 +1,7 @@
 import Comment from "../models/comment";
 import { body, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
-
-
+import Post from "../models/post";
 
 export const post_comment_post = [
   body("name").trim().escape(),
@@ -35,6 +34,20 @@ export const post_comment_post = [
   }),
 ];
 
+export const comment_delete = asyncHandler(async (req, res, next) => {
+  await Comment.findByIdAndDelete(req.params.commentId);
+  await Comment.deleteMany({ parentComment: req.params.commentId });
+  const [post, comments] = await Promise.all([
+    Post.findById(req.params.postId).exec(),
+    Comment.find({ post: req.params.postId }).exec(),
+  ]);
+
+  return res.json({
+    post: post,
+    comments: comments,
+  });
+});
+
 // export const post_comments_get = asyncHandler(async (req, res, next) => {
 //   const comments = await Comment.find({ post: req.params.postId }).exec();
 //   res.json({
@@ -66,5 +79,3 @@ export const post_comment_post = [
 //     });
 //   }
 // );
-
-
