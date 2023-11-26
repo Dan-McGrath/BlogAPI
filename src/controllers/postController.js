@@ -5,7 +5,7 @@ import { body, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
 
 export const posts_get = asyncHandler(async (req, res, next) => {
-  const posts = await Post.find().exec();
+  const posts = await Post.find().populate("user").exec();
   res.json({
     posts: posts,
   });
