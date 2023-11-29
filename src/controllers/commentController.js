@@ -14,11 +14,9 @@ export const post_comment_post = [
       text: req.body.text,
       post: req.params.postId,
     };
-    if (req.params.commentId)
-      commentDetail.parentComment = req.params.commentId;
 
     const comment = new Comment(commentDetail);
-
+    const post = await Post.findById(req.params.postId);
     if (!errors.isEmpty()) {
       res.json({
         comment: comment,
@@ -27,6 +25,13 @@ export const post_comment_post = [
       return;
     } else {
       await comment.save();
+      post.comments.push(comment);
+      await post.save();
+      if (req.params.commentId) {
+        const parentComment = await Comment.findById(req.params.commentId);
+        parentComment.replies.push(comment);
+        await parentComment.save();
+      }
       res.json({
         comment: comment,
       });
