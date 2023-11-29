@@ -13,11 +13,13 @@ const CommentSchema = new mongoose.Schema(
     },
     post: { type: mongoose.Schema.Types.ObjectId, ref: "Post", required: true },
 
-    parentComment: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-      required: false,
-    },
+    replies: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+        required: false,
+      },
+    ],
   },
   { timestamps: true }
 );
