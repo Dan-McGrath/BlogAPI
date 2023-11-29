@@ -12,7 +12,7 @@ const router = Router();
 router.get("/", posts_get);
 router.post("/create", post_create_post);
 router.get("/:postId", posts_detail_get);
-router.post("/:postId", post_comment_post);
+router.post("/:postId/:commentId", post_comment_post);
 router.delete("/:postId", post_delete);
 
 router.put("/:postId/update");
