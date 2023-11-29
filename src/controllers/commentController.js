@@ -25,7 +25,7 @@ export const post_comment_post = [
       return;
     } else {
       await comment.save();
-      post.comments.push(comment);
+      post.comments.push(comment._id);
       await post.save();
       if (req.params.commentId) {
         const parentComment = await Comment.findById(req.params.commentId);
