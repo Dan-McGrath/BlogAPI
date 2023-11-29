@@ -27,7 +27,7 @@ async function main() {
   await createPosts();
   await createComments();
   await createCommentOfComments();
-  
+
   console.log("Debug: Closing mongoose");
   mongoose.connection.close();
 }
@@ -74,7 +74,7 @@ async function commentCreate(index, name, text, post, comments) {
   } else {
     commentdetail.name = "anonymous";
   }
-  if (comments != false) commentdetail.parentComment = comments;
+  if (comments != false) commentdetail.replies.push(comments);
 
   const comment = new models.Comment(commentdetail);
   await comment.save();
