@@ -74,10 +74,14 @@ async function commentCreate(index, name, text, post, comments) {
   } else {
     commentdetail.name = "anonymous";
   }
-  if (comments != false) commentdetail.replies.push(comments);
+  if (comments != false) commentdetail.replies = [comments];
 
   const comment = new models.Comment(commentdetail);
+  const updatePost = await models.Post.findById(post._id);
+
   await comment.save();
+  updatePost.comments.push(comment._id);
+  await updatePost.save();
   allComments[index] = comment;
   console.log(`Added comment: ${text}`);
 }
