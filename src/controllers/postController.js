@@ -13,7 +13,13 @@ export const posts_get = asyncHandler(async (req, res, next) => {
 
 export const posts_detail_get = asyncHandler(async (req, res, next) => {
   const [post, comments] = await Promise.all([
-    Post.findById(req.params.postId).populate('comments').exec(),
+    Post.findById(req.params.postId)
+      .populate({
+        path: "comments",
+        populate: "replies",
+      })
+      .populate("user")
+      .exec(),
   ]);
   res.json({
     post: post,
